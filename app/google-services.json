@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "582449437948",
+    "project_id": "projeto-piloto-x01",
+    "storage_bucket": "projeto-piloto-x01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582449437948:android:21855f965ecebe6e49cb79",
+        "android_client_info": {
+          "package_name": "projeto.piloto.prototipox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdWu7UNsmRObvBHq43Nti03Bac2dwjJZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

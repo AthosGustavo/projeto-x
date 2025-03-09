@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <EditText
+        android:id="@+id/inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        android:hint="E-mail" />
+
+    <EditText
+        android:id="@+id/inputSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:layout_alignStart="@id/inputEmail"
+        android:layout_alignEnd="@id/inputEmail"
+        android:layout_below="@id/inputEmail"/>
+
+    <EditText
+        android:id="@+id/inputConfirmarSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Confirmar senha"
+        android:visibility="gone"
+        android:inputType="textPassword"
+        android:layout_alignStart="@id/inputEmail"
+        android:layout_alignEnd="@id/inputEmail"
+        android:layout_below="@id/inputSenha"/>
+
+    <Button
+        android:id="@+id/btnEntrarCadastrarEntrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entrar"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/inputConfirmarSenha"
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@id/inputConfirmarSenha"
+        android:layout_alignEnd="@id/inputConfirmarSenha"/>
+
+    <TextView
+        android:id="@+id/textoMudaLoginCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Ainda não tem uma conta ?"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_below="@id/btnEntrarCadastrarEntrar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+</RelativeLayout>
