@@ -9,6 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import projeto.piloto.prototipox.Auth.FirebaseAutenticacao;
 import projeto.piloto.prototipox.R;
 import projeto.piloto.prototipox.databinding.ActivityLoginBinding;
@@ -47,11 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         String inputSenha = activityLoginBinding.inputSenha.getText().toString();
         String inputEmail = activityLoginBinding.inputEmail.getText().toString();
 
-        if (cadastro) {
-          firebaseAutenticacaoAuth.realizarCadastro(LoginActivity.this,inputEmail,inputSenha,inputConfirmarSenha);
-        } else {
-          firebaseAutenticacaoAuth.realizarLogin();
+        try{
+          if (cadastro) {
+            firebaseAutenticacaoAuth.realizarCadastro(LoginActivity.this,inputEmail,inputSenha,inputConfirmarSenha);
+          } else {
+            firebaseAutenticacaoAuth.realizarLogin(LoginActivity.this,inputEmail,inputSenha);
+          }
+        }catch(IllegalArgumentException ex){
+          Snackbar.make(activityLoginBinding.getRoot(), "Atenção, os campos de e-mail e senha devem ser preenchidos", Snackbar.LENGTH_LONG).show();
         }
+
       }
     });
   }

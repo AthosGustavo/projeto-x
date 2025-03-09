@@ -1,5 +1,7 @@
 package projeto.piloto.prototipox.Auth;
 
+import static com.google.firebase.FirebaseError.ERROR_INVALID_EMAIL;
+
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
@@ -11,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
@@ -31,7 +32,12 @@ public class FirebaseAutenticacao {
               .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> resposta) {
-                  tratarRespostaAutenticacao(resposta);
+                  if(resposta.isSuccessful()){
+                    Snackbar.make(viewBinding.getRoot(), "Conta criada com sucesso !.", Snackbar.LENGTH_LONG).show();
+                  }else{
+                    tratarRespostaAutenticacao(resposta);
+                  }
+
                 }
               });
     } else {
@@ -47,18 +53,31 @@ public class FirebaseAutenticacao {
       } catch (FirebaseAuthWeakPasswordException e) {
         Snackbar.make(this.viewBinding.getRoot(), "Senha fraca.A senha deve conter no mínimo 6 caracteres.", Snackbar.LENGTH_LONG).show();
       } catch (FirebaseAuthInvalidCredentialsException e) {
-        Snackbar.make(this.viewBinding.getRoot(), "A senha digitada não corresponde à conta de e-mail fornecida.", Snackbar.LENGTH_LONG).show();
+        if(e.getErrorCode().equals("ERROR_INVALID_EMAIL")){
+          Snackbar.make(this.viewBinding.getRoot(), "E-mail formatado incorretamente.Use o formato nome@dominio.com", Snackbar.LENGTH_LONG).show();
+        }
+        if(e.getErrorCode().equals("ERROR_INVALID_CREDENTIAL")){
+          Snackbar.make(this.viewBinding.getRoot(), "A senha ou e-mail estão incorretos.", Snackbar.LENGTH_LONG).show();
+        }
       } catch (FirebaseAuthUserCollisionException e) {
         Snackbar.make(this.viewBinding.getRoot(), "O e-mail já está vinculado a outra conta.", Snackbar.LENGTH_LONG).show();
-      } catch (FirebaseAuthInvalidUserException e) {
-        Snackbar.make(this.viewBinding.getRoot(), "Nenhum usuário foi encontrado para este e-mail.", Snackbar.LENGTH_LONG).show();
       } catch (Exception e) {
         Snackbar.make(this.viewBinding.getRoot(), "Erro inesperado, contate o administrador.", Snackbar.LENGTH_LONG).show();
       }
     }
   }
 
-  public void realizarLogin() {
-
+  public void realizarLogin(Activity activity,String email, String senha) {
+    firebaseAuth.signInWithEmailAndPassword(email, senha)
+      .addOnCompleteListener(activity,new OnCompleteListener<AuthResult>() {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> resposta) {
+          if(resposta.isSuccessful()){
+            Snackbar.make(viewBinding.getRoot(), "Seja bem vindo.", Snackbar.LENGTH_LONG).show();
+          }else{
+            tratarRespostaAutenticacao(resposta);
+          }
+        }
+      });
   }
 }
